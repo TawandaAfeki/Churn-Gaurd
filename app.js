@@ -274,29 +274,33 @@ const handleRegister = async (e) => {
             throw new Error("Invalid credentials");
         }
 
+        // ✅ THIS WAS MISSING
         const data = await res.json();
 
         state.token = data.access_token;
         localStorage.setItem("token", data.access_token);
 
-        // Minimal user object for UI
         state.user = {
             email: email,
-            full_name: "Admin",
+            full_name: email.split("@")[0],
             company_name: "ChoandCo"
         };
+        localStorage.setItem("user", JSON.stringify(state.user));
 
+        // Show app BEFORE updating UI
         document.getElementById('loginPage').style.display = 'none';
         document.getElementById('app').style.display = 'flex';
 
-        await loadClients();
+        generateSampleData();   // demo customers
         updateUserInfo();
         initializeDashboard();
 
     } catch (err) {
+        console.error(err);
         alert("Login failed. Check email or password.");
     }
 };
+
 
 
     document.getElementById('registerPage').style.display = 'none';
