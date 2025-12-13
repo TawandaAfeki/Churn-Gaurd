@@ -225,7 +225,22 @@ const handleLogin = async (e) => {
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
 
-    
+    // AFTER successful login
+state.token = data.access_token;
+localStorage.setItem("token", data.access_token);
+
+// TEMP demo user (until /me endpoint exists)
+state.user = {
+    email: email,
+    full_name: email.split("@")[0], // better than "Admin"
+    company_name: "ChoandCo"
+};
+
+// 👇 THIS WAS MISSING
+generateSampleData();
+
+    updateUserInfo();
+    initializeDashboard();
 
     document.getElementById('loginPage').style.display = 'none';
     document.getElementById('app').style.display = 'flex';
