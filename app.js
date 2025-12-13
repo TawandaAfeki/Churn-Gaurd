@@ -1,5 +1,5 @@
 // Configuration
-const API_BASE_URL = 'http://localhost:8000/api';
+const API_BASE_URL = 'https://churnguard-backend.onrender.com/api';
 
 // State Management
 const state = {
@@ -225,13 +225,7 @@ const handleLogin = async (e) => {
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
 
-    // Demo mode - accept any credentials
-    state.user = {
-        email: email,
-        full_name: 'John Doe',
-        company_name: 'Acme Corp'
-    };
-    state.token = 'demo-token';
+    
 
     document.getElementById('loginPage').style.display = 'none';
     document.getElementById('app').style.display = 'flex';
@@ -248,13 +242,47 @@ const handleRegister = async (e) => {
     const company = document.getElementById('registerCompany').value;
     const email = document.getElementById('registerEmail').value;
 
-    // Demo mode - auto register
-    state.user = {
-        email: email,
-        full_name: fullName,
-        company_name: company
-    };
-    state.token = 'demo-token';
+    const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+
+        if (!res.ok) {
+            throw new Error("Invalid credentials");
+        }
+
+        const data = await res.json();
+
+        state.token = data.access_token;
+        localStorage.setItem("token", data.access_token);
+
+        // Minimal user object for UI
+        state.user = {
+            email: email,
+            full_name: "Admin",
+            company_name: "ChoandCo"
+        };
+
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('app').style.display = 'flex';
+
+        await loadClients();
+        updateUserInfo();
+        initializeDashboard();
+
+    } catch (err) {
+        alert("Login failed. Check email or password.");
+    }
+};
+
 
     document.getElementById('registerPage').style.display = 'none';
     document.getElementById('app').style.display = 'flex';
