@@ -222,34 +222,48 @@ const showLoginPage = () => {
 
 const handleLogin = async (e) => {
     e.preventDefault();
+
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
 
-    // AFTER successful login
-state.token = data.access_token;
-localStorage.setItem("token", data.access_token);
+    try {
+        const res = await fetch(`${API_BASE_URL}/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
 
-// TEMP demo user (until /me endpoint exists)
-state.user = {
-    email: email,
-    full_name: email.split("@")[0], // better than "Admin"
-    company_name: "ChoandCo"
+        if (!res.ok) {
+            throw new Error("Invalid credentials");
+        }
+
+        // ✅ THIS WAS MISSING
+        const data = await res.json();
+
+        state.token = data.access_token;
+        localStorage.setItem("token", data.access_token);
+
+        state.user = {
+            email: email,
+            full_name: email.split("@")[0],
+            company_name: "ChoandCo"
+        };
+        localStorage.setItem("user", JSON.stringify(state.user));
+
+        // Show app BEFORE updating UI
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('app').style.display = 'flex';
+
+        generateSampleData();   // demo customers
+        updateUserInfo();
+        initializeDashboard();
+
+    } catch (err) {
+        console.error(err);
+        alert("Login failed. Check email or password.");
+    }
 };
 
-// 👇 THIS WAS MISSING
-generateSampleData();
-
-    updateUserInfo();
-    initializeDashboard();
-
-    document.getElementById('loginPage').style.display = 'none';
-    document.getElementById('app').style.display = 'flex';
-
-    // Load sample data and initialize
-    generateSampleData();
-    updateUserInfo();
-    initializeDashboard();
-};
 
 const handleRegister = async (e) => {
     e.preventDefault();
