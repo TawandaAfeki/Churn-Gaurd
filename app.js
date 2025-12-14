@@ -237,24 +237,23 @@ const handleLogin = async (e) => {
             throw new Error("Invalid credentials");
         }
 
-        // ✅ THIS WAS MISSING
         const data = await res.json();
 
+        // ✅ Save token
         state.token = data.access_token;
         localStorage.setItem("token", data.access_token);
 
-        state.user = {
-            email: email,
-            full_name: email.split("@")[0],
-            company_name: "ChoandCo"
-        };
-        localStorage.setItem("user", JSON.stringify(state.user));
+        // ✅ Save REAL user from backend
+        state.user = data.user;
+        localStorage.setItem("user", JSON.stringify(data.user));
 
-        // Show app BEFORE updating UI
+        // Show app
         document.getElementById('loginPage').style.display = 'none';
         document.getElementById('app').style.display = 'flex';
 
-        generateSampleData();   // demo customers
+        // TEMP demo data (we’ll replace this later)
+        generateSampleData();
+
         updateUserInfo();
         initializeDashboard();
 
@@ -263,6 +262,7 @@ const handleLogin = async (e) => {
         alert("Login failed. Check email or password.");
     }
 };
+
 
 
 const handleRegister = async (e) => {
