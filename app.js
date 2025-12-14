@@ -205,14 +205,18 @@ const renderUrgentActions = async () => {
     }
 
     urgentActionsList.innerHTML = alerts.map(a => `
-        <div class="action-item">
-            <div class="action-priority ${a.priority}"></div>
-            <div class="action-content">
-                <div class="action-title">${a.title}</div>
-                <div class="action-description">${a.description}</div>
+    <div class="action-item">
+        <div class="action-priority ${a.priority}"></div>
+        <div class="action-content">
+            <div class="action-title">
+                ${a.title}
+                <span class="action-customer">• ${a.customer_name}</span>
             </div>
+            <div class="action-description">${a.description}</div>
         </div>
-    `).join("");
+    </div>
+`).join("");
+
 };
 
 // ================================
