@@ -227,41 +227,50 @@ const handleLogin = async (e) => {
     const password = document.getElementById('loginPassword').value;
 
     try {
-        const res = await fetch(`${API_BASE_URL}/login`, {
+        // 1️⃣ Login
+        const loginRes = await fetch(`${API_BASE_URL}/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })
         });
 
-        if (!res.ok) {
+        if (!loginRes.ok) {
             throw new Error("Invalid credentials");
         }
 
-        const data = await res.json();
+        const loginData = await loginRes.json();
+        state.token = loginData.access_token;
+        localStorage.setItem("token", loginData.access_token);
 
-        // ✅ Save token
-        state.token = data.access_token;
-        localStorage.setItem("token", data.access_token);
+        // 2️⃣ Fetch logged-in user info
+        const meRes = await fetch(`${API_BASE_URL}/me`, {
+            headers: {
+                "Authorization": `Bearer ${state.token}`
+            }
+        });
 
-        // ✅ Save REAL user from backend
-        state.user = data.user;
-        localStorage.setItem("user", JSON.stringify(data.user));
+        if (!meRes.ok) {
+            throw new Error("Failed to fetch user info");
+        }
 
-        // Show app
+        const userData = await meRes.json();
+        state.user = userData;
+        localStorage.setItem("user", JSON.stringify(userData));
+
+        // 3️⃣ Show app
         document.getElementById('loginPage').style.display = 'none';
         document.getElementById('app').style.display = 'flex';
 
-        // TEMP demo data (we’ll replace this later)
-        generateSampleData();
-
+        generateSampleData(); // demo customers (for now)
         updateUserInfo();
         initializeDashboard();
 
     } catch (err) {
         console.error(err);
-        alert("Login failed. Check email or password.");
+        alert("Login failed");
     }
 };
+
 
 
 
@@ -294,11 +303,6 @@ const handleRegister = async (e) => {
         state.token = data.access_token;
         localStorage.setItem("token", data.access_token);
 
-        state.user = {
-            email: email,
-            full_name: email.split("@")[0],
-            company_name: "ChoandCo"
-        };
         localStorage.setItem("user", JSON.stringify(state.user));
 
         // Show app BEFORE updating UI
