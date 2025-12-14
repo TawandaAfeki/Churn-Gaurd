@@ -107,6 +107,7 @@ const handleLogin = async (e) => {
         updateUserInfo();
         initializeDashboard();
 
+
     } catch (err) {
         alert("Login failed");
         console.error(err);
@@ -163,6 +164,7 @@ const initializeDashboard = () => {
     renderRiskChart();
     renderUrgentActions();
     renderCustomersTable();
+    renderChurnTrendChart();
 };
 
 // ================================
@@ -243,4 +245,77 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutBtn.addEventListener("click", handleLogout);
 });
 
+const fetchChurnTrend = async () => {
+    const res = await fetch(`${API_BASE_URL}/dashboard/trends`, {
+        headers: authHeaders()
+    });
+    if (!res.ok) return [];
+    return res.json();
+};
+
+const renderChurnTrendChart = async () => {
+    const ctx = document.getElementById("churnTrendChart");
+    if (!ctx) return;
+
+    const trend = await fetchChurnTrend();
+
+    if (!trend.length) {
+        ctx.parentElement.innerHTML = "<p>No trend data yet</p>";
+        return;
+    }
+
+    const labels = trend.map(r =>
+        new Date(r.month).toLocaleDateString("en-US", {
+            month: "short",
+            year: "numeric"
+        })
+    );
+
+    if (state.charts.trend) state.charts.trend.destroy();
+
+    state.charts.trend = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels,
+            datasets: [
+                {
+                    label: "High Risk",
+                    data: trend.map(r => r.high),
+                    borderColor: "#ef4444",
+                    backgroundColor: "rgba(239,68,68,0.15)",
+                    tension: 0.4,
+                    fill: true
+                },
+                {
+                    label: "Medium Risk",
+                    data: trend.map(r => r.medium),
+                    borderColor: "#f59e0b",
+                    backgroundColor: "rgba(245,158,11,0.15)",
+                    tension: 0.4,
+                    fill: true
+                },
+                {
+                    label: "Low Risk",
+                    data: trend.map(r => r.low),
+                    borderColor: "#10b981",
+                    backgroundColor: "rgba(16,185,129,0.15)",
+                    tension: 0.4,
+                    fill: true
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: "bottom" }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { precision: 0 }
+                }
+            }
+        }
+    });
+};
 
