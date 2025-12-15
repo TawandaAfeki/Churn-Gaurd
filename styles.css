@@ -405,3 +405,80 @@ select:focus {
     grid-template-columns: 1fr;
   }
 }
+/* ======================================================
+   URGENT ACTIONS – PROFESSIONAL PRESENTATION
+====================================================== */
+
+.actions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* each action row */
+.actions-list > * {
+  position: relative;
+  padding: 14px 16px 14px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* subtle left accent for urgency */
+.actions-list > *::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--warning);
+}
+
+/* de-emphasise boilerplate text */
+.actions-list > * {
+  color: var(--text-primary);
+}
+
+/* customer name emphasis */
+.actions-list > * strong,
+.actions-list > * b {
+  font-weight: 600;
+}
+
+/* secondary lines (dates, explanations) */
+.actions-list > * span,
+.actions-list > * small {
+  color: var(--text-secondary);
+}
+
+/* tighten multi-line items */
+.actions-list > * br {
+  display: none;
+}
+
+/* spacing between logical sentences */
+.actions-list > *::after {
+  content: '';
+  display: block;
+  margin-top: 6px;
+}
+
+/* hover affordance (subtle, not clickable-looking) */
+.actions-list > *:hover {
+  background: var(--bg-muted);
+}
+
+/* OPTIONAL: severity tuning based on keywords */
+.actions-list > *:has(:contains("failed")),
+.actions-list > *:has(:contains("high risk")) {
+  border-color: rgba(185, 28, 28, 0.25);
+}
+
+.actions-list > *:has(:contains("inactive")),
+.actions-list > *:has(:contains("expiring")) {
+  border-color: rgba(180, 83, 9, 0.25);
+}
