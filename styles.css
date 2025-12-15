@@ -401,24 +401,26 @@ body {
   line-height: 1;
 }
 
-/* Force image to ignore text sizing completely */
+/* =====================================================
+   LOGO SIZE TUNING — ADDITIVE ONLY
+===================================================== */
+
+/* Global default */
 .logo-img {
-  height: 18px;
-  width: auto;
-  max-height: 18px;
-  display: block;
-  flex-shrink: 0;
-  object-fit: contain;
+  height: 26px;
+  max-height: 26px;
 }
 
-/* Auth page logo size */
+/* Auth pages (login + register) */
 .auth-header .logo-img {
+  height: 32px;
+  max-height: 32px;
+}
+
+/* Sidebar */
+.sidebar-header .logo-img {
   height: 22px;
   max-height: 22px;
 }
-
-/* Sidebar logo size */
-.sidebar-header .logo-img {
-  height: 16px;
-  max-height: 16px;
+max-height: 16px;
 }
