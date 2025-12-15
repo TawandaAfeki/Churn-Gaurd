@@ -389,25 +389,36 @@ body {
   padding: 24px;
 }
 
+/* =====================================================
+   LOGO FIX — ADDITIVE ONLY (NO EXISTING CODE CHANGED)
+===================================================== */
+
+/* Ensure logo container does not scale children */
 .logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    line-height: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1;
 }
 
+/* Force image to ignore text sizing completely */
 .logo-img {
-    height: 20px;
-    width: auto;
-    display: block;
-    flex-shrink: 0;
+  height: 18px;
+  width: auto;
+  max-height: 18px;
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
 }
 
+/* Auth page logo size */
 .auth-header .logo-img {
-    height: 22px;
+  height: 22px;
+  max-height: 22px;
 }
 
+/* Sidebar logo size */
 .sidebar-header .logo-img {
-    height: 18px;
+  height: 16px;
+  max-height: 16px;
 }
-
