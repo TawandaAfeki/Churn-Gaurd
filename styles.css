@@ -1,436 +1,351 @@
-/* =====================================================
-   RESET
-===================================================== */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* =====================================================
-   DESIGN TOKENS
-===================================================== */
-
-:root {
-  --bg-page: #f6f7fa;
-  --bg-card: #ffffff;
-  --bg-muted: #f1f3f6;
-
-  --border-default: #d9dde3;
-  --border-muted: #e5e7eb;
-
-  --text-primary: #1f2937;
-  --text-secondary: #6b7280;
-  --text-muted: #9ca3af;
-
-  --brand: #3b5bcc;
-  --brand-hover: #314db3;
-
-  --success-bg: #e6f5f3;
-  --success-text: #0f766e;
-
-  --warning-bg: #fff4e5;
-  --warning-text: #b45309;
-
-  --danger-bg: #fdecec;
-  --danger-text: #b91c1c;
-
-  --radius-sm: 6px;
-  --radius-md: 10px;
-
-  --transition: 150ms ease;
-}
-
-/* =====================================================
-   BASE
-===================================================== */
-
-body {
-  font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
-  background: var(--bg-page);
-  color: var(--text-primary);
-  line-height: 1.5;
-}
-
-/* =====================================================
-   AUTH (LOGIN)
-===================================================== */
-
-.auth-page {
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: 24px;
-}
-
-.auth-container {
-  width: 100%;
-  max-width: 420px;
-}
-
-.auth-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-md);
-  padding: 32px;
-}
-
-.auth-header {
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.logo {
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--brand);
-  margin-bottom: 6px;
-}
-
-.auth-subtitle {
-  font-size: 14px;
-  color: var(--text-secondary);
-}
-
-.auth-form {
-  display: block;
-}
-
-.form-group {
-  margin-bottom: 16px;
-}
-
-.form-group label {
-  display: block;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  margin-bottom: 6px;
-}
-
-.form-group input,
-.form-group select {
-  width: 100%;
-  height: 40px;
-  padding: 0 12px;
-  font-size: 14px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-default);
-  background: #fff;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-  outline: none;
-  border-color: var(--brand);
-}
-
-.btn {
-  height: 40px;
-  padding: 0 16px;
-  font-size: 14px;
-  font-weight: 500;
-  border-radius: var(--radius-sm);
-  border: none;
-  cursor: pointer;
-}
-
-.btn-primary {
-  background: var(--brand);
-  color: #fff;
-}
-
-.btn-primary:hover {
-  background: var(--brand-hover);
-}
-
-.auth-form .btn-primary {
-  display: block;
-  margin: 20px auto 0;
-  min-width: 140px;
-}
-
-.auth-footer {
-  margin-top: 20px;
-  text-align: center;
-  font-size: 14px;
-  color: var(--text-secondary);
-}
-
-/* =====================================================
-   APP LAYOUT
-===================================================== */
-
-#app {
-  display: flex;
-  height: 100vh;
-}
-
-.sidebar {
-  width: 260px;
-  background: #111827;
-  color: #9ca3af;
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar-header {
-  padding: 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-
-.sidebar-nav a {
-  display: block;
-  padding: 10px 20px;
-  font-size: 14px;
-  color: #9ca3af;
-  text-decoration: none;
-}
-
-.sidebar-nav a:hover {
-  background: rgba(255,255,255,0.05);
-}
-
-.sidebar-nav a.active {
-  color: #ffffff;
-  background: rgba(255,255,255,0.08);
-  border-left: 3px solid var(--brand);
-}
-
-/* =====================================================
-   MAIN CONTENT
-===================================================== */
-
-.main-content {
-  flex: 1;
-  padding: 32px 40px;
-  overflow-y: auto;
-  background: var(--bg-page);
-}
-
-.page {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.page-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
-}
-
-.page-header h1 {
-  font-size: 26px;
-  font-weight: 600;
-}
-
-/* =====================================================
-   SECTIONS / CARDS
-===================================================== */
-
-.section,
-.card,
-.chart-card,
-.metric-card,
-.integration-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-md);
-}
-
-.section {
-  padding: 24px;
-  margin-bottom: 24px;
-}
-
-/* =====================================================
-   METRICS
-===================================================== */
-
-.metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-}
-
-.metric-card {
-  padding: 16px;
-}
-
-.metric-label {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-bottom: 4px;
-}
-
-.metric-value {
-  font-size: 22px;
-  font-weight: 600;
-}
-
-/* =====================================================
-   CHARTS
-===================================================== */
-
-.charts-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-}
-
-.chart-card {
-  padding: 20px;
-}
-
-.chart-card h3 {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-
-/* =====================================================
-   ACTIONS LIST
-===================================================== */
-
-.actions-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.action-item {
-  display: flex;
-  gap: 12px;
-  padding: 12px;
-  border: 1px solid var(--border-muted);
-  border-radius: 8px;
-  background: #fafafa;
-}
-
-.action-title {
-  font-weight: 500;
-  margin-bottom: 4px;
-}
-
-.action-description {
-  font-size: 14px;
-  color: var(--text-secondary);
-}
-
-/* =====================================================
-   TABLES
-===================================================== */
-
-.table-container {
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  background: #fff;
-}
-
-.customers-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.customers-table th {
-  background: var(--bg-muted);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  padding: 12px 16px;
-  text-align: left;
-}
-
-.customers-table td {
-  padding: 14px 16px;
-  border-top: 1px solid var(--border-muted);
-  font-size: 14px;
-}
-
-.customers-table tr:hover {
-  background: #fafafa;
-}
-
-/* =====================================================
-   BADGES
-===================================================== */
-
-.risk-badge {
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.risk-badge.high {
-  background: var(--danger-bg);
-  color: var(--danger-text);
-}
-
-.risk-badge.medium {
-  background: var(--warning-bg);
-  color: var(--warning-text);
-}
-
-.risk-badge.low {
-  background: var(--success-bg);
-  color: var(--success-text);
-}
-
-/* =====================================================
-   INTEGRATIONS
-===================================================== */
-
-.integrations-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px;
-}
-
-.integration-card {
-  padding: 20px;
-}
-
-.integration-card h3 {
-  font-size: 16px;
-  margin-bottom: 6px;
-}
-
-.integration-card p {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin-bottom: 12px;
-}
-
-/* =====================================================
-   SETTINGS
-===================================================== */
-
-.settings-form {
-  max-width: 520px;
-}
-
-.settings-form .form-group {
-  margin-bottom: 16px;
-}
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media (max-width: 768px) {
-  #app {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    width: 100%;
-  }
-
-  .main-content {
-    padding: 16px;
-  }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ChurnGuard Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    /* =====================================================
+       RESET
+    ===================================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* =====================================================
+       DESIGN TOKENS
+    ===================================================== */
+    :root {
+      --bg-page: #f6f7fa;
+      --bg-card: #ffffff;
+      --bg-muted: #f1f3f6;
+
+      --border-default: #d9dde3;
+      --border-muted: #e5e7eb;
+
+      --text-primary: #1f2937;
+      --text-secondary: #6b7280;
+      --text-muted: #9ca3af;
+
+      --brand: #3b5bcc;
+      --brand-hover: #314db3;
+
+      --danger: #b91c1c;
+      --warning: #b45309;
+      --success: #0f766e;
+
+      --radius-sm: 6px;
+      --radius-md: 10px;
+    }
+
+    /* =====================================================
+       BASE
+    ===================================================== */
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
+      background: var(--bg-page);
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    /* =====================================================
+       APP LAYOUT
+    ===================================================== */
+    #app {
+      display: flex;
+      height: 100vh;
+    }
+
+    /* =====================================================
+       SIDEBAR
+    ===================================================== */
+    .sidebar {
+      width: 260px;
+      background: #111827;
+      color: #9ca3af;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-header {
+      padding: 20px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #ffffff;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .sidebar-nav a {
+      display: block;
+      padding: 12px 20px;
+      font-size: 14px;
+      color: #9ca3af;
+      text-decoration: none;
+    }
+
+    .sidebar-nav a:hover {
+      background: rgba(255,255,255,0.05);
+    }
+
+    .sidebar-nav a.active {
+      background: rgba(255,255,255,0.08);
+      color: #ffffff;
+      border-left: 3px solid var(--brand);
+    }
+
+    /* --- User footer pinned to bottom --- */
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 16px 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .user-meta {
+      min-width: 0;
+    }
+
+    .user-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-email {
+      font-size: 12px;
+      color: #9ca3af;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .logout-btn {
+      width: 100%;
+      height: 36px;
+      font-size: 13px;
+      background: rgba(255,255,255,0.08);
+      color: #e5e7eb;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .logout-btn:hover {
+      background: rgba(255,255,255,0.14);
+    }
+
+    /* =====================================================
+       MAIN CONTENT
+    ===================================================== */
+    .main-content {
+      flex: 1;
+      padding: 32px 40px;
+      overflow-y: auto;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .page-header h1 {
+      font-size: 26px;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      background: var(--brand);
+      color: #ffffff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn-primary:hover {
+      background: var(--brand-hover);
+    }
+
+    /* =====================================================
+       METRICS
+    ===================================================== */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+
+    .metric-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .metric-value {
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    /* =====================================================
+       CHART ROW 75 / 25
+    ===================================================== */
+    .charts-row {
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .chart-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      min-height: 420px;
+    }
+
+    .chart-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+    @media (max-width: 1024px) {
+      .metrics-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .charts-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      #app {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+      }
+
+      .main-content {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">ChurnGuard</div>
+
+      <nav class="sidebar-nav">
+        <a class="active" href="#">Dashboard</a>
+        <a href="#">Customers</a>
+        <a href="#">Analytics</a>
+        <a href="#">Integrations</a>
+        <a href="#">Settings</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile">
+          <div class="user-avatar">TA</div>
+          <div class="user-meta">
+            <div class="user-name">Tawanda Afeki</div>
+            <div class="user-email">afekitawanda@gmail.com</div>
+          </div>
+        </div>
+        <button class="logout-btn">Log out</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <div class="page">
+        <div class="page-header">
+          <h1>Dashboard</h1>
+          <button class="btn-primary">Sync Data</button>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-label">Total Customers</div>
+            <div class="metric-value">6</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">High Risk</div>
+            <div class="metric-value">4</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">At-Risk MRR</div>
+            <div class="metric-value">$8,300</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Avg Health Score</div>
+            <div class="metric-value">36</div>
+          </div>
+        </div>
+
+        <div class="charts-row">
+          <div class="chart-card">
+            <h3>Churn Risk Trend</h3>
+            <!-- Line chart canvas -->
+          </div>
+
+          <div class="chart-card">
+            <h3>Risk Distribution</h3>
+            <!-- Donut chart canvas -->
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
