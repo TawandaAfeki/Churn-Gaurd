@@ -388,3 +388,14 @@ body {
   border-radius: 12px;
   padding: 24px;
 }
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-img {
+    height: 20px;
+    width: auto;
+}
