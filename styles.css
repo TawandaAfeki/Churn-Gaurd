@@ -50,15 +50,34 @@ body {
   padding: 32px;
 }
 
+/* ===============================
+   AUTH LOGO FIX (LOGIN / REGISTER)
+================================ */
+
+/* Center everything */
 .auth-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  margin-bottom: 24px;
+  gap: 10px;
 }
 
+/* Stack logo image + text */
 .auth-header .logo {
-  font-size: 26px;
-  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
+
+/* Make PNG logo bigger */
+.auth-header .logo-img {
+  height: 80px;        /* 👈 change size here */
+  width: auto;
+  object-fit: contain;
+}
+
 
 .auth-subtitle {
   font-size: 14px;
