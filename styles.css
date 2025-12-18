@@ -147,8 +147,10 @@ body {
   padding: 20px;
   color: #fff;
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;   /* stack logo + text */
+  align-items: center;      /* center horizontally */
+  gap: 6px;
+  text-align: center;       /* center text */
 }
 
 /* Fix logo text overflow */
@@ -408,9 +410,12 @@ body {
 
 /* Global default */
 .logo-img {
-  height: 50px;
-  max-height: 50px;
+  height: 72px;        /* increase size here */
+  width: auto;         /* keep aspect ratio */
+  object-fit: contain; /* prevent distortion */
+  flex-shrink: 0;      /* prevent squishing */
 }
+
 
 /* Auth pages (login + register) */
 .auth-header .logo-img {
