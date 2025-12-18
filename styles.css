@@ -447,3 +447,17 @@ body {
   height: 50px;
   max-height: 50px;
 }
+/* ===============================
+   LOGIN PAGE BACKGROUND IMAGE
+================================ */
+
+#loginPage {
+  background-image: url("background.png");
+  background-size: cover;       /* fills screen */
+  background-position: center;  /* center crop */
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
