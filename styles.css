@@ -73,7 +73,7 @@ body {
 
 /* Make PNG logo bigger */
 .auth-header .logo-img {
-  height: 80px;        /* 👈 change size here */
+  height: 200px;        /* 👈 change size here */
   width: auto;
   object-fit: contain;
 }
@@ -446,6 +446,4 @@ body {
 .sidebar-header .logo-img {
   height: 50px;
   max-height: 50px;
-}
-max-height: 16px;
 }
