@@ -407,8 +407,8 @@ body {
 
 /* Global default */
 .logo-img {
-  height: 26px;
-  max-height: 26px;
+  height: 50px;
+  max-height: 50px;
 }
 
 /* Auth pages (login + register) */
@@ -419,8 +419,8 @@ body {
 
 /* Sidebar */
 .sidebar-header .logo-img {
-  height: 22px;
-  max-height: 22px;
+  height: 50px;
+  max-height: 50px;
 }
 max-height: 16px;
 }
