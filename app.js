@@ -323,3 +323,49 @@ const renderChurnTrendChart = async () => {
     });
 };
 
+function showPage(pageId) {
+  document.querySelectorAll(".page").forEach(p => {
+    p.style.display = "none";
+  });
+
+  document.getElementById(pageId).style.display = "block";
+}
+
+document.getElementById("customersNav").addEventListener("click", () => {
+  showPage("customersPage");
+  loadCustomers(); // 👈 THIS is the key
+});
+
+let customersLoaded = false;
+
+async function loadCustomers() {
+  if (customersLoaded) return; // prevent repeat work
+
+  const token = localStorage.getItem("token");
+
+  const res = await fetch("/api/customers/dashboard", {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  const customers = await res.json();
+  renderCustomers(customers);
+
+  customersLoaded = true;
+}
+
+function renderCustomers(customers) {
+  const tbody = document.querySelector("#customersTable tbody");
+  tbody.innerHTML = "";
+
+  customers.forEach(c => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${c.name}</td>
+      <td>${c.health_score ?? "N/A"}</td>
+      <td>${c.churn_risk ?? "N/A"}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
