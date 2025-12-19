@@ -383,6 +383,8 @@ function renderCustomers(customers) {
 
   customers.forEach(c => {
     const tr = document.createElement("tr");
+    tr.style.cursor = "pointer";
+
     tr.innerHTML = `
       <td>${c.name}</td>
       <td>${c.health_score}</td>
@@ -392,7 +394,45 @@ function renderCustomers(customers) {
         </span>
       </td>
     `;
+
+    tr.addEventListener("click", () => {
+      openCustomerDetail(c);
+    });
+
     tbody.appendChild(tr);
   });
 }
 
+function openCustomerDetail(customer) {
+  state.currentCustomer = customer;
+
+  // Populate header
+  document.getElementById("customerDetailName").textContent = customer.name;
+
+  document.getElementById("customerDetailEmail").textContent =
+    customer.email || "-";
+
+  document.getElementById("customerDetailMRR").textContent =
+    formatCurrency(customer.mrr);
+
+  document.getElementById("customerDetailContract").textContent =
+    customer.contract_end_date || "-";
+
+  document.getElementById("customerDetailStatus").textContent =
+    customer.status || "-";
+
+  // Health score
+  document.getElementById("customerHealthScore").textContent =
+    customer.health_score;
+
+  // Risk badge
+  const badge = document.getElementById("customerRiskBadge");
+  badge.textContent = `${customer.risk_level.toUpperCase()} RISK`;
+  badge.className = `risk-badge ${customer.risk_level}`;
+
+  showPage("customerDetailPage");
+}
+
+document.getElementById("backToCustomers").addEventListener("click", () => {
+  showPage("customersPage");
+});
