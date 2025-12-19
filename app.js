@@ -133,7 +133,34 @@ const updateUserInfo = () => {
         .join("")
         .toUpperCase();
 
-    document.querySelector(".user-avatar").textContent = initials;
+    document.querySelectorAll(".nav-item").forEach(item => {
+  item.addEventListener("click", e => {
+    e.preventDefault();
+
+    const page = item.dataset.page;
+
+    showPage(`${page}Page`);
+
+    if (page === "customers") {
+      let customersLoaded = false;
+
+async function loadCustomers() {
+  if (customersLoaded) return;
+
+  state.customers = await fetchCustomers();
+  renderCustomers(state.customers);
+
+  customersLoaded = true;
+}
+
+    }
+
+    if (page === "dashboard") {
+      initializeDashboard();
+    }
+  });
+});
+
     userName.textContent = state.user.full_name;
     userEmail.textContent = state.user.email;
 };
@@ -163,7 +190,6 @@ const initializeDashboard = () => {
 
     renderRiskChart();
     renderUrgentActions();
-    renderCustomersTable();
     renderChurnTrendChart();
 };
 
@@ -331,17 +357,13 @@ function showPage(pageId) {
   document.getElementById(pageId).style.display = "block";
 }
 
-document.getElementById("customersNav").addEventListener("click", () => {
-  showPage("customersPage");
-  loadCustomers(); // 👈 THIS is the key
-});
+
 
 let customersLoaded = false;
 
 async function loadCustomers() {
   if (customersLoaded) return; // prevent repeat work
 
-  const token = localStorage.getItem("token");
 
   const res = await fetch("/api/customers/dashboard", {
     headers: {
@@ -363,9 +385,14 @@ function renderCustomers(customers) {
     const tr = document.createElement("tr");
     tr.innerHTML = `
       <td>${c.name}</td>
-      <td>${c.health_score ?? "N/A"}</td>
-      <td>${c.churn_risk ?? "N/A"}</td>
+      <td>${c.health_score}</td>
+      <td>
+        <span class="risk-badge ${c.risk_level}">
+          ${c.risk_level.toUpperCase()}
+        </span>
+      </td>
     `;
     tbody.appendChild(tr);
   });
 }
+
