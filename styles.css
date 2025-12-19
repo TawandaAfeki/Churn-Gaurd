@@ -74,7 +74,7 @@ body {
 /* Make PNG logo bigger */
 .auth-header .logo-img {
   height: 200px;        /* 👈 change size here */
-  width: auto;
+  width: 200px;
   object-fit: contain;
 }
 
@@ -429,8 +429,8 @@ body {
 
 /* Global default */
 .logo-img {
-  height: 72px;        /* increase size here */
-  width: auto;         /* keep aspect ratio */
+  height: 75px;        /* increase size here */
+  width: 75px;         /* keep aspect ratio */
   object-fit: contain; /* prevent distortion */
   flex-shrink: 0;      /* prevent squishing */
 }
@@ -438,14 +438,14 @@ body {
 
 /* Auth pages (login + register) */
 .auth-header .logo-img {
-  height: 32px;
-  max-height: 32px;
+  height: 200px;
+  max-height: 200px;
 }
 
 /* Sidebar */
 .sidebar-header .logo-img {
-  height: 50px;
-  max-height: 50px;
+  height: 100px;
+  max-height: 100px;
 }
 /* ===============================
    LOGIN PAGE BACKGROUND IMAGE
