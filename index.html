@@ -171,12 +171,28 @@
             </div>
 
             <!-- Customers Page -->
-            <div id="customersPage" class="page">
+<div id="customersPage" class="page">
   <div class="page-header">
     <h1>Customers</h1>
     <button class="btn btn-primary" id="addCustomerBtn">
       <span>+</span> Add Customer
     </button>
+  </div>
+
+  <!-- Filters (NOW SCOPED CORRECTLY) -->
+  <div class="filters-bar">
+    <input
+      type="text"
+      id="customerSearch"
+      class="search-input"
+      placeholder="Search customers..."
+    />
+    <select id="riskFilter" class="filter-select">
+      <option value="all">All Risk Levels</option>
+      <option value="high">High Risk</option>
+      <option value="medium">Medium Risk</option>
+      <option value="low">Low Risk</option>
+    </select>
   </div>
 
   <table id="customersTable">
@@ -192,16 +208,8 @@
 </div>
 
 
-                <!-- Filters -->
-                <div class="filters-bar">
-                    <input type="text" id="customerSearch" class="search-input" placeholder="Search customers...">
-                    <select id="riskFilter" class="filter-select">
-                        <option value="all">All Risk Levels</option>
-                        <option value="high">High Risk</option>
-                        <option value="medium">Medium Risk</option>
-                        <option value="low">Low Risk</option>
-                    </select>
-                </div>
+
+                
 
                 <!-- Customers Table -->
                 <!-- <div class="card">
