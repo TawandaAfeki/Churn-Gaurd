@@ -115,7 +115,7 @@ body {
 
 .form-group input:focus {
     border-color: #67c1f9;
-    box-shadow: 0 0 0 1px rgb(135,206,250);
+    box-shadow: 0 0 0 1px rgb(93,189,248);
 }
 
 
@@ -128,7 +128,7 @@ body {
 }
 
 .btn-primary {
-  background: rgb(135,206,250);
+  background: rgb(93,189,248);
   color: #fff;
 }
 
@@ -221,7 +221,7 @@ body {
 .user-avatar {
   width: 36px;
   height: 36px;
-  background: rgb(135,206,250);
+  background: rgb(93,189,248);
   border-radius: 50%;
   display: grid;
   place-items: center;
