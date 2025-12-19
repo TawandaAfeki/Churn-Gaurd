@@ -438,8 +438,8 @@ body {
 
 /* Auth pages (login + register) */
 .auth-header .logo-img {
-  height: 200px;
-  max-height: 200px;
+  height: 125px;
+  max-height: 125px;
 }
 
 /* Sidebar */
