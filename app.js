@@ -327,7 +327,7 @@ async function loadCustomers() {
     state.alerts = await fetchAlerts();
   }
 
-  renderCustomers(state.customers);
+  renderCustomers(getFilteredCustomers());
   customersLoaded = true;
 }
 
@@ -417,6 +417,16 @@ backToCustomers.addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", () => {
   loginForm.addEventListener("submit", handleLogin);
   logoutBtn.addEventListener("click", handleLogout);
+  customerSearch.addEventListener("input", () => {
+  const filtered = getFilteredCustomers();
+  renderCustomers(filtered);
+});
+
+riskFilter.addEventListener("change", () => {
+  const filtered = getFilteredCustomers();
+  renderCustomers(filtered);
+});
+
 });
 
 function getRiskReasonFromAlerts(customer) {
@@ -451,3 +461,19 @@ function getAlertsByCustomer() {
   return map;
 }
 
+function getFilteredCustomers() {
+  const search = customerSearch.value.toLowerCase().trim();
+  const risk = riskFilter.value;
+
+  return state.customers.filter(c => {
+    const matchesSearch =
+      !search ||
+      c.name.toLowerCase().includes(search) ||
+      c.email.toLowerCase().includes(search);
+
+    const matchesRisk =
+      risk === "all" || c.risk_level === risk;
+
+    return matchesSearch && matchesRisk;
+  });
+}
