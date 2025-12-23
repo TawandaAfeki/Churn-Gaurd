@@ -12,6 +12,7 @@ const state = {
   customers: [],
   charts: {},
   currentCustomer: null
+  alerts: []
 };
 
 let customersLoaded = false;
@@ -179,6 +180,7 @@ const calculateMetrics = () => {
 
 const initializeDashboard = async () => {
   state.customers = await fetchCustomers();
+  state.alerts = await fetchAlerts();
 
   const m = calculateMetrics();
   totalCustomers.textContent = m.total;
@@ -320,10 +322,15 @@ async function loadCustomers() {
   if (customersLoaded) return;
 
   state.customers = await fetchCustomers();
-  renderCustomers(state.customers);
 
+  if (!state.alerts.length) {
+    state.alerts = await fetchAlerts();
+  }
+
+  renderCustomers(state.customers);
   customersLoaded = true;
 }
+
 
 function renderCustomers(customers) {
   const tbody = document.getElementById("customersTableBody");
@@ -357,7 +364,7 @@ function renderCustomers(customers) {
         ${c.contract_end_date || "—"}
       </td>
 
-      <td>${getRiskReason(c)}</td>
+      <td>${getRiskReasonFromAlerts(c)}</td>
     `;
 
     tr.onclick = () => openCustomerDetail(c);
@@ -412,11 +419,35 @@ document.addEventListener("DOMContentLoaded", () => {
   logoutBtn.addEventListener("click", handleLogout);
 });
 
-function getRiskReason(c) {
-  if (c.payment_status === "failed") return "Payment failed";
-  if (c.contract_end_date && new Date(c.contract_end_date) < new Date())
-    return "Contract expired";
-  if (c.health_score < 20) return "Low engagement";
-  if (c.support_tickets > 3) return "High support tickets";
-  return "Healthy usage";
+function getRiskReasonFromAlerts(customer) {
+  const alertsByCustomer = getAlertsByCustomer();
+  const alerts = alertsByCustomer[customer.id];
+
+  if (!alerts || alerts.length === 0) {
+    return "No active risks";
+  }
+
+  // highest priority first
+  const priorityOrder = ["high", "medium", "low"];
+
+  alerts.sort(
+    (a, b) =>
+      priorityOrder.indexOf(a.priority) -
+      priorityOrder.indexOf(b.priority)
+  );
+
+  return alerts[0].title;
 }
+function getAlertsByCustomer() {
+  const map = {};
+
+  state.alerts.forEach(a => {
+    if (!map[a.customer_id]) {
+      map[a.customer_id] = [];
+    }
+    map[a.customer_id].push(a);
+  });
+
+  return map;
+}
+
