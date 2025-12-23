@@ -11,7 +11,7 @@ const state = {
   token: null,
   customers: [],
   charts: {},
-  currentCustomer: null
+  currentCustomer: null,
   alerts: []
 };
 
