@@ -326,27 +326,45 @@ async function loadCustomers() {
 }
 
 function renderCustomers(customers) {
-  const tbody = document.querySelector("#customersTable tbody");
+  const tbody = document.getElementById("customersTableBody");
   tbody.innerHTML = "";
 
   customers.forEach(c => {
     const tr = document.createElement("tr");
-    tr.style.cursor = "pointer";
+
+    const contractExpired =
+      c.contract_end_date && new Date(c.contract_end_date) < new Date();
 
     tr.innerHTML = `
-      <td>${c.name}</td>
-      <td>${c.health_score}</td>
+      <td>
+        <div class="customer-name">${c.name}</div>
+        <div class="customer-email">${c.email}</div>
+      </td>
+
+      <td>
+        <span class="health-pill">${c.health_score}</span>
+      </td>
+
       <td>
         <span class="risk-badge ${c.risk_level}">
           ${c.risk_level.toUpperCase()}
         </span>
       </td>
+
+      <td>${formatCurrency(c.mrr)}</td>
+
+      <td class="${contractExpired ? "contract-expired" : ""}">
+        ${c.contract_end_date || "—"}
+      </td>
+
+      <td>${getRiskReason(c)}</td>
     `;
 
-    tr.addEventListener("click", () => openCustomerDetail(c));
+    tr.onclick = () => openCustomerDetail(c);
     tbody.appendChild(tr);
   });
 }
+
 
 function openCustomerDetail(customer) {
   state.currentCustomer = customer;
@@ -394,3 +412,11 @@ document.addEventListener("DOMContentLoaded", () => {
   logoutBtn.addEventListener("click", handleLogout);
 });
 
+function getRiskReason(c) {
+  if (c.payment_status === "failed") return "Payment failed";
+  if (c.contract_end_date && new Date(c.contract_end_date) < new Date())
+    return "Contract expired";
+  if (c.health_score < 20) return "Low engagement";
+  if (c.support_tickets > 3) return "High support tickets";
+  return "Healthy usage";
+}
