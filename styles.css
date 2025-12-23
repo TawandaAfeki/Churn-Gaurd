@@ -408,8 +408,23 @@ body {
   border-radius: 999px;
   font-weight: 600;
   font-size: 12px;
-  background: #e5f9f0;
 }
+
+.health-pill.low {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.health-pill.medium {
+  background: #fff7ed;
+  color: #92400e;
+}
+
+.health-pill.high {
+  background: #e6f9f0;
+  color: #047857;
+}
+
 
 .risk-badge.low { background: #e6f9f0; color: #047857; }
 .risk-badge.medium { background: #fff7ed; color: #b45309; }
@@ -499,5 +514,62 @@ body {
   min-height: 100vh;
   display: grid;
   place-items: center;
+}
+/* =====================================================
+   CUSTOMERS PAGE ENHANCEMENTS (ADDITIVE)
+===================================================== */
+
+/* Filters bar alignment */
+.filters-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.search-input,
+.filter-select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+
+/* Customer name + email hierarchy */
+.customer-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.customer-email {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+/* Table container spacing */
+.table-container {
+  padding: 8px 0;
+}
+
+/* Numeric alignment */
+.customers-table td:nth-child(4) {
+  font-weight: 600;
+}
+
+/* Date column subtle */
+.customers-table td:nth-child(5) {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+/* Risk reason column */
+.customers-table td:nth-child(6) {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* Better hover focus */
+.customers-table tr:hover td {
+  background: #f8fafc;
 }
 
