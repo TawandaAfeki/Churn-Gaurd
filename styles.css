@@ -381,12 +381,52 @@ body {
   border-collapse: collapse;
 }
 
-.customers-table th,
-.customers-table td {
+.customers-table th {
+  text-align: left;
+  font-weight: 600;
+  color: #6b7280;
   padding: 12px;
-  border-bottom: 1px solid var(--border);
-  font-size: 14px;
+  border-bottom: 1px solid #e5e7eb;
 }
+
+.customers-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.customers-table tr {
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.customers-table tr:hover {
+  background: #f9fafb;
+}
+
+.health-pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 12px;
+  background: #e5f9f0;
+}
+
+.risk-badge.low { background: #e6f9f0; color: #047857; }
+.risk-badge.medium { background: #fff7ed; color: #b45309; }
+.risk-badge.high { background: #fee2e2; color: #b91c1c; }
+
+.risk-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.contract-expired {
+  color: #dc2626;
+  font-weight: 600;
+}
+
 
 /* =====================================================
    MODAL
