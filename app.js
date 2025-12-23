@@ -240,16 +240,46 @@ const renderChurnTrendChart = async () => {
       labels,
       datasets: [
         {
+          label: "Low Risk",
+          data: trend.map(r => r.low),
+          borderColor: "#10b981",
+          backgroundColor: "rgba(16,185,129,0.15)",
+          tension: 0.4,
+          fill: true
+        },
+        {
+          label: "Medium Risk",
+          data: trend.map(r => r.medium),
+          borderColor: "#f59e0b",
+          backgroundColor: "rgba(245,158,11,0.15)",
+          tension: 0.4,
+          fill: true
+        },
+        {
           label: "High Risk",
           data: trend.map(r => r.high),
           borderColor: "#ef4444",
+          backgroundColor: "rgba(239,68,68,0.15)",
           tension: 0.4,
           fill: true
         }
       ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: "bottom" }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { precision: 0 }
+        }
+      }
     }
   });
 };
+
 
 // ================================
 // Alerts
@@ -257,21 +287,31 @@ const renderChurnTrendChart = async () => {
 const renderUrgentActions = async () => {
   const alerts = await fetchAlerts();
 
-  urgentActionsList.innerHTML = alerts.length
-    ? alerts
-        .map(
-          a => `
+  if (!alerts.length) {
+    urgentActionsList.innerHTML = "<p>No urgent actions</p>";
+    return;
+  }
+
+  urgentActionsList.innerHTML = alerts
+    .map(
+      a => `
       <div class="action-item">
-        <div class="action-title">
-          ${a.title}
-          <span class="action-customer">• ${a.customer_name}</span>
+        <div class="action-priority ${a.priority}"></div>
+        <div class="action-content">
+          <div class="action-title">
+            ${a.title}
+            <span class="action-customer">• ${a.customer_name}</span>
+          </div>
+          <div class="action-description">
+            ${a.description}
+          </div>
         </div>
-        <div class="action-description">${a.description}</div>
-      </div>`
-        )
-        .join("")
-    : "<p>No urgent actions</p>";
+      </div>
+    `
+    )
+    .join("");
 };
+
 
 // ================================
 // Customers
