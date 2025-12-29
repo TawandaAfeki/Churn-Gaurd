@@ -161,6 +161,13 @@ function showPage(pageId) {
 }
 
 // ================================
+// Analytics DOM bindings
+// ================================
+const expectedMrrLoss = document.getElementById("expectedMrrLoss");
+const riskRatio = document.getElementById("riskRatio");
+const riskMomentumTable = document.getElementById("riskMomentumTable");
+
+// ================================
 // Dashboard
 // ================================
 const calculateMetrics = () => {
@@ -488,6 +495,8 @@ async function initializeAnalytics() {
 }
 
 async function renderRevenueAtRisk() {
+  if (!expectedMrrLoss || !riskRatio) return;
+
   const res = await fetch(`${API_BASE_URL}/analytics/revenue-at-risk`, {
     headers: authHeaders()
   });
@@ -500,7 +509,10 @@ async function renderRevenueAtRisk() {
   riskRatio.textContent = `${Math.round(data.risk_ratio * 100)}%`;
 }
 
+
 async function renderRiskMomentum() {
+  if (!riskMomentumTable) return;
+
   const res = await fetch(`${API_BASE_URL}/risk-momentum`, {
     headers: authHeaders()
   });
@@ -521,4 +533,5 @@ async function renderRiskMomentum() {
     )
     .join("");
 }
+
 
