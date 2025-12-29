@@ -1,35 +1,4 @@
 // ================================
-// DOM bindings
-// ================================
-const loginForm = document.getElementById("loginForm");
-const loginEmail = document.getElementById("loginEmail");
-const loginPassword = document.getElementById("loginPassword");
-const loginPage = document.getElementById("loginPage");
-const app = document.getElementById("app");
-
-const userName = document.getElementById("userName");
-const userEmail = document.getElementById("userEmail");
-const logoutBtn = document.getElementById("logoutBtn");
-
-const totalCustomers = document.getElementById("totalCustomers");
-const highRiskCount = document.getElementById("highRiskCount");
-const atRiskMRR = document.getElementById("atRiskMRR");
-const avgHealthScore = document.getElementById("avgHealthScore");
-
-const urgentActionsList = document.getElementById("urgentActionsList");
-const customerSearch = document.getElementById("customerSearch");
-const riskFilter = document.getElementById("riskFilter");
-
-const backToCustomers = document.getElementById("backToCustomers");
-const customerDetailName = document.getElementById("customerDetailName");
-const customerDetailEmail = document.getElementById("customerDetailEmail");
-const customerDetailMRR = document.getElementById("customerDetailMRR");
-const customerDetailContract = document.getElementById("customerDetailContract");
-const customerDetailStatus = document.getElementById("customerDetailStatus");
-const customerHealthScore = document.getElementById("customerHealthScore");
-const customerRiskBadge = document.getElementById("customerRiskBadge");
-
-// ================================
 // Configuration
 // ================================
 const API_BASE_URL = "https://churnguard-backend.onrender.com/api";
@@ -463,28 +432,83 @@ backToCustomers.addEventListener("click", () => {
 // ================================
 // Init
 // ================================
-document.addEventListener("DOMContentLoaded", async () => {
-  loginForm.addEventListener("submit", handleLogin);
+document.addEventListener("DOMContentLoaded", () => {
+  // ================================
+  // DOM bindings
+  // ================================
+  const loginForm = document.getElementById("loginForm");
+  const loginEmail = document.getElementById("loginEmail");
+  const loginPassword = document.getElementById("loginPassword");
+  const loginPage = document.getElementById("loginPage");
+  const app = document.getElementById("app");
+
+  const userName = document.getElementById("userName");
+  const userEmail = document.getElementById("userEmail");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  const customerSearch = document.getElementById("customerSearch");
+  const riskFilter = document.getElementById("riskFilter");
+  const urgentActionsList = document.getElementById("urgentActionsList");
+
+  // ================================
+  // Event bindings
+  // ================================
+  loginForm.addEventListener("submit", async e => {
+    e.preventDefault();
+
+    try {
+      const loginRes = await fetch(`${API_BASE_URL}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: loginEmail.value,
+          password: loginPassword.value
+        })
+      });
+
+      if (!loginRes.ok) throw new Error("Invalid credentials");
+
+      const loginData = await loginRes.json();
+      state.token = loginData.access_token;
+      localStorage.setItem("token", state.token);
+
+      state.user = await fetchMe();
+      localStorage.setItem("user", JSON.stringify(state.user));
+
+      loginPage.style.display = "none";
+      app.style.display = "flex";
+
+      updateUserInfo();
+      setActiveNav("dashboard");
+      showPage("dashboardPage");
+      initializeDashboard();
+    } catch (err) {
+      alert("Login failed");
+      console.error(err);
+    }
+  });
+
   logoutBtn.addEventListener("click", handleLogout);
 
-  customerSearch.addEventListener("input", () => {
-    renderCustomers(getFilteredCustomers());
-  });
+  // ================================
+  // Auto-login if token exists
+  // ================================
+  const savedToken = localStorage.getItem("token");
+  const savedUser = localStorage.getItem("user");
 
-  riskFilter.addEventListener("change", () => {
-    renderCustomers(getFilteredCustomers());
-  });
+  if (savedToken && savedUser) {
+    state.token = savedToken;
+    state.user = JSON.parse(savedUser);
 
-  // 👇 AUTO LOGIN IF TOKEN EXISTS
-  if (state.token && state.user) {
     loginPage.style.display = "none";
     app.style.display = "flex";
     updateUserInfo();
     setActiveNav("dashboard");
     showPage("dashboardPage");
-    await initializeDashboard();
+    initializeDashboard();
   }
 });
+
 
 
 function getRiskReasonFromAlerts(customer) {
