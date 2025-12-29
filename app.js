@@ -30,6 +30,16 @@ const authHeaders = () => ({
   Authorization: `Bearer ${state.token}`,
   "Content-Type": "application/json"
 });
+// ================================
+// Restore auth from localStorage
+// ================================
+const savedToken = localStorage.getItem("token");
+const savedUser = localStorage.getItem("user");
+
+if (savedToken && savedUser) {
+  state.token = savedToken;
+  state.user = JSON.parse(savedUser);
+}
 
 // ================================
 // API Calls
@@ -422,20 +432,29 @@ backToCustomers.addEventListener("click", () => {
 // ================================
 // Init
 // ================================
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   loginForm.addEventListener("submit", handleLogin);
   logoutBtn.addEventListener("click", handleLogout);
+
   customerSearch.addEventListener("input", () => {
-  const filtered = getFilteredCustomers();
-  renderCustomers(filtered);
+    renderCustomers(getFilteredCustomers());
+  });
+
+  riskFilter.addEventListener("change", () => {
+    renderCustomers(getFilteredCustomers());
+  });
+
+  // 👇 AUTO LOGIN IF TOKEN EXISTS
+  if (state.token && state.user) {
+    loginPage.style.display = "none";
+    app.style.display = "flex";
+    updateUserInfo();
+    setActiveNav("dashboard");
+    showPage("dashboardPage");
+    await initializeDashboard();
+  }
 });
 
-riskFilter.addEventListener("change", () => {
-  const filtered = getFilteredCustomers();
-  renderCustomers(filtered);
-});
-
-});
 
 function getRiskReasonFromAlerts(customer) {
   const alertsByCustomer = getAlertsByCustomer();
