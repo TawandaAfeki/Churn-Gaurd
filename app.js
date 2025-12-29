@@ -403,6 +403,7 @@ document.querySelectorAll(".nav-item").forEach(item => {
 
     if (page === "customers") await loadCustomers();
     if (page === "dashboard") await initializeDashboard();
+    if (page === "analytics") await initializeAnalytics();
   });
 });
 
@@ -477,3 +478,47 @@ function getFilteredCustomers() {
     return matchesSearch && matchesRisk;
   });
 }
+
+// ================================
+// Analytics
+// ================================
+async function initializeAnalytics() {
+  await renderRevenueAtRisk();
+  await renderRiskMomentum();
+}
+
+async function renderRevenueAtRisk() {
+  const res = await fetch(`${API_BASE_URL}/analytics/revenue-at-risk`, {
+    headers: authHeaders()
+  });
+
+  if (!res.ok) return;
+
+  const data = await res.json();
+
+  expectedMrrLoss.textContent = formatCurrency(data.expected_mrr_loss);
+  riskRatio.textContent = `${Math.round(data.risk_ratio * 100)}%`;
+}
+
+async function renderRiskMomentum() {
+  const res = await fetch(`${API_BASE_URL}/risk-momentum`, {
+    headers: authHeaders()
+  });
+
+  if (!res.ok) return;
+
+  const rows = await res.json();
+
+  riskMomentumTable.innerHTML = rows
+    .map(
+      r => `
+      <tr>
+        <td>${r.customer}</td>
+        <td class="${r.trend}">${r.trend}</td>
+        <td>${r.delta}</td>
+      </tr>
+    `
+    )
+    .join("");
+}
+
