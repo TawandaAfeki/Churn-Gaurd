@@ -1,4 +1,35 @@
 // ================================
+// DOM bindings
+// ================================
+const loginForm = document.getElementById("loginForm");
+const loginEmail = document.getElementById("loginEmail");
+const loginPassword = document.getElementById("loginPassword");
+const loginPage = document.getElementById("loginPage");
+const app = document.getElementById("app");
+
+const userName = document.getElementById("userName");
+const userEmail = document.getElementById("userEmail");
+const logoutBtn = document.getElementById("logoutBtn");
+
+const totalCustomers = document.getElementById("totalCustomers");
+const highRiskCount = document.getElementById("highRiskCount");
+const atRiskMRR = document.getElementById("atRiskMRR");
+const avgHealthScore = document.getElementById("avgHealthScore");
+
+const urgentActionsList = document.getElementById("urgentActionsList");
+const customerSearch = document.getElementById("customerSearch");
+const riskFilter = document.getElementById("riskFilter");
+
+const backToCustomers = document.getElementById("backToCustomers");
+const customerDetailName = document.getElementById("customerDetailName");
+const customerDetailEmail = document.getElementById("customerDetailEmail");
+const customerDetailMRR = document.getElementById("customerDetailMRR");
+const customerDetailContract = document.getElementById("customerDetailContract");
+const customerDetailStatus = document.getElementById("customerDetailStatus");
+const customerHealthScore = document.getElementById("customerHealthScore");
+const customerRiskBadge = document.getElementById("customerRiskBadge");
+
+// ================================
 // Configuration
 // ================================
 const API_BASE_URL = "https://churnguard-backend.onrender.com/api";
