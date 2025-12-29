@@ -587,7 +587,7 @@ async function renderRevenueAtRisk() {
 async function renderRiskMomentum() {
   if (!riskMomentumTable) return;
 
-  cconst res = await fetch(`${API_BASE_URL}/analytics/risk-momentum`, {
+  const res = await fetch(`${API_BASE_URL}/analytics/risk-momentum`, {
   headers: authHeaders()
 });
 
