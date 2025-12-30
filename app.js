@@ -118,6 +118,16 @@ const fetchChurnTrend = async () => {
   return res.json();
 };
 
+const fetchRevenueAtRiskHistory = async () => {
+  const res = await fetch(
+    `${API_BASE_URL}/analytics/revenue-at-risk-history`,
+    { headers: authHeaders() }
+  );
+  if (!res.ok) return [];
+  return res.json();
+};
+
+
 // ================================
 // Auth
 // ================================
@@ -309,6 +319,54 @@ async function renderChurnTrendChart() {
   });
 }
 
+async function renderRevenueAtRiskChart() {
+  const ctx = document.getElementById("revenueRiskChart");
+  if (!ctx) return;
+
+  const data = await fetchRevenueAtRiskHistory();
+  if (!data.length) return;
+
+  if (state.charts.revenueRisk) {
+    state.charts.revenueRisk.destroy();
+  }
+
+  state.charts.revenueRisk = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: data.map(d =>
+        new Date(d.month).toLocaleDateString("en-US", {
+          month: "short",
+          year: "numeric"
+        })
+      ),
+      datasets: [
+        {
+          label: "Revenue at Risk",
+          data: data.map(d => d.value),
+          borderColor: "#ef4444",
+          backgroundColor: "rgba(239,68,68,0.15)",
+          tension: 0.4,
+          fill: true
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: "bottom" }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: v => formatCurrency(v)
+          }
+        }
+      }
+    }
+  });
+}
+
 // ================================
 // Alerts
 // ================================
@@ -393,7 +451,9 @@ function getFilteredCustomers() {
 async function initializeAnalytics() {
   await renderRevenueAtRisk();
   await renderRiskMomentum();
+  await renderRevenueAtRiskChart(); // 👈 add this
 }
+
 
 async function renderRevenueAtRisk() {
   const res = await fetch(`${API_BASE_URL}/analytics/revenue-at-risk`, {
