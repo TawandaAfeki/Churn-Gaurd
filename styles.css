@@ -609,3 +609,9 @@ td.neutral {
   color: #6b7280;
 }
 
+.chart-subtitle {
+  margin-top: -8px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: #6b7280;
+}
