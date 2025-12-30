@@ -615,3 +615,23 @@ td.neutral {
   font-size: 13px;
   color: #6b7280;
 }
+/* ============================= */
+/* Analytics Page Layout */
+/* ============================= */
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.analytics-left {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.analytics-right {
+  min-width: 0; /* prevents chart overflow */
+}
