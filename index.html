@@ -9,456 +9,397 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Login Page -->
-    <div id="loginPage" class="auth-page">
-        <div class="auth-container">
-            <div class="auth-card">
-                <div class="auth-header">
-                    <h1 class="logo">
-                        <img src="main main.png" alt="ChurnGuard Logo" class="logo-img">
-                    </h1>
-                </div>
-                <form id="loginForm" class="auth-form">
-                    <div class="form-group">
-                        <label for="loginEmail">Email</label>
-                        <input type="email" id="loginEmail" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="loginPassword">Password</label>
-                        <input type="password" id="loginPassword" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Log In</button>
-                </form>
-            </div>
-        </div>
-    </div>
 
-    <!-- Register Page -->
-    <div id="registerPage" class="auth-page" style="display: none;">
-        <div class="auth-container">
-            <div class="auth-card">
-                <div class="auth-header">
-                    <h1 class="logo">
-                        <img src="main main.png" alt="ChurnGuard Logo" class="logo-img">
-                        <span>Churn Guard</span>
-                    </h1>
-                    <p class="auth-subtitle">Create your account</p>
-                </div>
-                <form id="registerForm" class="auth-form">
-                    <div class="form-group">
-                        <label for="registerFullName">Full Name</label>
-                        <input type="text" id="registerFullName" required placeholder="John Doe">
-                    </div>
-                    <div class="form-group">
-                        <label for="registerCompany">Company Name</label>
-                        <input type="text" id="registerCompany" required placeholder="Acme Inc">
-                    </div>
-                    <div class="form-group">
-                        <label for="registerEmail">Email</label>
-                        <input type="email" id="registerEmail" required placeholder="you@company.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="registerPassword">Password</label>
-                        <input type="password" id="registerPassword" required placeholder="••••••••">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Create Account</button>
-                </form>
-                <div class="auth-footer">
-                    <p>Already have an account? <a href="#" id="showLogin">Sign in</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main App -->
-    <div id="app" style="display: none;">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
+<!-- Login Page -->
+<div id="loginPage" class="auth-page">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
                 <h1 class="logo">
-                        <img src="main main.png" alt="ChurnGuard Logo" class="logo-img">
-                        <span>Churn Guard</span>
-                    </h1>
+                    <img src="main main.png" alt="ChurnGuard Logo" class="logo-img">
+                </h1>
             </div>
-            <nav class="sidebar-nav">
-                <a href="#" class="nav-item" data-page="dashboard">
-                    Dashboard
-                </a>
-                <a href="#" class="nav-item" data-page="customers">
-                    Customers
-                </a>
-                <a href="#" class="nav-item" data-page="analytics">
-                    Analytics
-                </a>
-                <a href="#" class="nav-item" data-page="integrations">
-                    Integrations
-                </a>
-                <a href="#" class="nav-item" data-page="settings">
-                    Settings
-                </a>
-            </nav>
-            <div class="sidebar-footer">
-                <div class="user-info">
-                    <div class="user-avatar"></div>
-                    <div class="user-details">
-                        <div class="user-name" id="userName"></div>
-                        <div class="user-email" id="userEmail"></div>
-                     </div>
-                </div>
-                <button id="logoutBtn" class="btn-logout">Logout</button>
-            </div>
-
-        </aside>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Dashboard Page -->
-            <div id="dashboardPage" class="page active">
-                <div class="page-header">
-                    <h1>Dashboard</h1>
-                    <button class="btn btn-primary" id="syncDataBtn">
-                        <span></span> Sync Data
-                    </button>
-                </div>
-
-                <!-- Metric Cards -->
-                <div class="metrics-grid">
-                    <div class="metric-card">
-                        <div class="metric-content">
-                            <div class="metric-label">Total Customers</div>
-                            <div class="metric-value" id="totalCustomers">0</div>
-                        </div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-content">
-                            <div class="metric-label">High Risk</div>
-                            <div class="metric-value" id="highRiskCount">0</div>
-                        </div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-content">
-                            <div class="metric-label">At-Risk MRR</div>
-                            <div class="metric-value" id="atRiskMRR">$0</div>
-                        </div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-content">
-                            <div class="metric-label">Avg Health Score</div>
-                            <div class="metric-value" id="avgHealthScore">0</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Charts Section -->
-                <div class="charts-grid">
-                    <div class="chart-card">
-                        <h3>Churn Risk Trend</h3>
-                        <canvas id="churnTrendChart"></canvas>
-                    </div>
-                    <div class="chart-card">
-                        <h3>Risk Distribution</h3>
-                        <canvas id="riskDistributionChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Urgent Actions -->
-                <div class="card">
-                    <h3>Urgent Actions Required</h3>
-                    <div id="urgentActionsList" class="actions-list"></div>
-                </div>
-            </div>
-
-            <!-- Customers Page -->
-<div id="customersPage" class="page">
-  <div class="page-header">
-    <h1>Customers</h1>
-    <button class="btn btn-primary" id="addCustomerBtn">
-      <span>+</span> Add Customer
-    </button>
-  </div>
-
-  <!-- Filters (NOW SCOPED CORRECTLY) -->
-  <div class="filters-bar">
-    <input
-      type="text"
-      id="customerSearch"
-      class="search-input"
-      placeholder="Search customers..."
-    />
-    <select id="riskFilter" class="filter-select">
-      <option value="all">All Risk Levels</option>
-      <option value="high">High Risk</option>
-      <option value="medium">Medium Risk</option>
-      <option value="low">Low Risk</option>
-    </select>
-  </div>
-
- <div class="card">
-  <div class="table-container">
-    <table class="customers-table">
-      <thead>
-        <tr>
-          <th>Customer</th>
-          <th>Health</th>
-          <th>Risk</th>
-          <th>MRR</th>
-          <th>Contract End</th>
-          <th>Risk Reason</th>
-        </tr>
-      </thead>
-      <tbody id="customersTableBody"></tbody>
-    </table>
-  </div>
-</div>
-
-
-
-
-                
-
-                <!-- Customers Table -->
-                <!-- <div class="card">
-                    <div class="table-container">
-                        <table class="customers-table">
-                            <thead>
-                                <tr>
-                                    <th>Customer</th>
-                                    <th>Health Score</th>
-                                    <th>Risk Level</th>
-                                    <th>MRR</th>
-                                    <th>Last Active</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="customersTableBody">
-                                <!-- Populated by JavaScript -->
-                           <!--  </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- Customer Detail Page -->
-            <div id="customerDetailPage" class="page">
-                <div class="page-header">
-                    <button class="btn-back" id="backToCustomers">← Back</button>
-                    <h1 id="customerDetailName">Customer Details</h1>
-                </div>
-
-                <div class="detail-grid">
-                    <!-- Health Score Card -->
-                    <div class="card detail-card">
-                        <h3>Health Score</h3>
-                        <div class="health-gauge-container">
-                            <canvas id="healthGauge"></canvas>
-                            <div class="health-score-center">
-                                <span id="customerHealthScore">0</span>
-                            </div>
-                        </div>
-                        <div id="customerRiskBadge" class="risk-badge">Low Risk</div>
-                    </div>
-
-                    <!-- Customer Info Card -->
-                    <div class="card detail-card">
-                        <h3>Customer Information</h3>
-                        <div class="info-list">
-                            <div class="info-item">
-                                <span class="info-label">Email:</span>
-                                <span id="customerDetailEmail">-</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">MRR:</span>
-                                <span id="customerDetailMRR">-</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Contract End:</span>
-                                <span id="customerDetailContract">-</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Status:</span>
-                                <span id="customerDetailStatus">-</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Score Breakdown -->
-                <div class="card">
-                    <h3>Health Score Breakdown</h3>
-                    <div id="scoreBreakdown" class="score-breakdown"></div>
-                </div>
-
-                <!-- Recommended Actions -->
-                <div class="card">
-                    <h3>Recommended Actions</h3>
-                    <div id="customerActions" class="actions-list"></div>
-                </div>
-            </div>
-
-            <!-- Analytics Page -->
-            <div id="analyticsPage" class="page">
-                <div class="page-header">
-                    <h1>Analytics</h1>
-                </div>
-
-                <div class="card">
-  <h3>Revenue at Risk</h3>
-  <div class="metric-row">
-    <div>
-      <div class="metric-label">Expected MRR Loss</div>
-      <div id="expectedMrrLoss" class="metric-value">$0</div>
-    </div>
-    <div>
-      <div class="metric-label">Risk Ratio</div>
-      <div id="riskRatio" class="metric-value">0%</div>
-    </div>
-  </div>
-</div>
-
-<div class="card">
-  <h3>Risk Momentum</h3>
-  <table class="analytics-table">
-    <thead>
-      <tr>
-        <th>Customer</th>
-        <th>Trend</th>
-        <th>Δ Churn</th>
-      </tr>
-    </thead>
-    <tbody id="riskMomentumTable"></tbody>
-  </table>
-</div>
-
-                <div class="chart-card">
-                    <h3>Revenue at Risk Over Time</h3>
-                    <canvas id="revenueRiskChart"></canvas>
-                </div>
-            </div>
-
-            <!-- Integrations Page -->
-            <div id="integrationsPage" class="page">
-                <div class="page-header">
-                    <h1>Integrations</h1>
-                </div>
-
-                <div class="integrations-grid">
-                    <div class="integration-card">
-                        <div class="integration-header">
-                            <h3>Stripe</h3>
-                        </div>
-                        <p>Connect your Stripe account to automatically sync customer and payment data.</p>
-                        <div class="integration-status" id="stripeStatus">
-                            <span class="status-indicator disconnected"></span>
-                            Not Connected
-                        </div>
-                        <button class="btn btn-primary" id="connectStripeBtn">Connect Stripe</button>
-                    </div>
-
-                    <div class="integration-card disabled">
-                        <div class="integration-header">
-                            <h3>HubSpot</h3>
-                        </div>
-                        <p>Sync customer engagement data from HubSpot CRM.</p>
-                        <div class="integration-status">
-                            <span class="badge">Coming Soon</span>
-                        </div>
-                    </div>
-
-                    <div class="integration-card disabled">
-                        <div class="integration-header">
-                            <h3>Salesforce</h3>
-                        </div>
-                        <p>Import customer data from Salesforce.</p>
-                        <div class="integration-status">
-                            <span class="badge">Coming Soon</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Settings Page -->
-            <div id="settingsPage" class="page">
-                <div class="page-header">
-                    <h1>Settings</h1>
-                </div>
-
-                <div class="card">
-                    <h3>Profile Settings</h3>
-                    <form id="profileForm" class="settings-form">
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" id="settingsFullName">
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" id="settingsEmail">
-                        </div>
-                        <div class="form-group">
-                            <label>Company Name</label>
-                            <input type="text" id="settingsCompany">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </form>
-                </div>
-
-                <div class="card">
-                    <h3>Notification Preferences</h3>
-                    <div class="settings-toggle">
-                        <label>
-                            <input type="checkbox" checked>
-                            Email alerts for high-risk customers
-                        </label>
-                    </div>
-                    <div class="settings-toggle">
-                        <label>
-                            <input type="checkbox" checked>
-                            Weekly summary reports
-                        </label>
-                    </div>
-                    <div class="settings-toggle">
-                        <label>
-                            <input type="checkbox">
-                            Daily digest
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <!-- Modal for Add Customer -->
-    <div id="addCustomerModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Add New Customer</h2>
-                <button class="modal-close">&times;</button>
-            </div>
-            <form id="addCustomerForm">
+            <form id="loginForm" class="auth-form">
                 <div class="form-group">
-                    <label>Customer Name</label>
-                    <input type="text" id="newCustomerName" required>
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="newCustomerEmail" required>
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
                 </div>
-                <div class="form-group">
-                    <label>Monthly Recurring Revenue (MRR)</label>
-                    <input type="number" id="newCustomerMRR" step="0.01" required>
-                </div>
-                <div class="form-group">
-                    <label>Contract End Date</label>
-                    <input type="date" id="newCustomerContractEnd">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary modal-close">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Customer</button>
-                </div>
+                <button type="submit" class="btn btn-primary btn-block">Log In</button>
             </form>
         </div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="app.js"></script>
+<!-- Register Page -->
+<div id="registerPage" class="auth-page" style="display: none;">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1 class="logo">
+                    <img src="main main.png" alt="ChurnGuard Logo" class="logo-img">
+                    <span>Churn Guard</span>
+                </h1>
+                <p class="auth-subtitle">Create your account</p>
+            </div>
+            <form id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <label for="registerFullName">Full Name</label>
+                    <input type="text" id="registerFullName" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="registerCompany">Company Name</label>
+                    <input type="text" id="registerCompany" required placeholder="Acme Inc">
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required placeholder="you@company.com">
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+            </form>
+            <div class="auth-footer">
+                <p>Already have an account? <a href="#" id="showLogin">Sign in</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main App -->
+<div id="app" style="display: none;">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="logo">
+                <img src="main main.png" alt="ChurnGuard Logo" class="logo-img">
+                <span>Churn Guard</span>
+            </h1>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item" data-page="dashboard">Dashboard</a>
+            <a href="#" class="nav-item" data-page="customers">Customers</a>
+            <a href="#" class="nav-item" data-page="analytics">Analytics</a>
+            <a href="#" class="nav-item" data-page="integrations">Integrations</a>
+            <a href="#" class="nav-item" data-page="settings">Settings</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar"></div>
+                <div class="user-details">
+                    <div class="user-name" id="userName"></div>
+                    <div class="user-email" id="userEmail"></div>
+                </div>
+            </div>
+            <button id="logoutBtn" class="btn-logout">Logout</button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Dashboard Page -->
+        <div id="dashboardPage" class="page active">
+            <div class="page-header">
+                <h1>Dashboard</h1>
+                <button class="btn btn-primary" id="syncDataBtn">Sync Data</button>
+            </div>
+
+            <!-- Metric Cards -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-content">
+                        <div class="metric-label">Total Customers</div>
+                        <div class="metric-value" id="totalCustomers">0</div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-content">
+                        <div class="metric-label">High Risk</div>
+                        <div class="metric-value" id="highRiskCount">0</div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-content">
+                        <div class="metric-label">At-Risk MRR</div>
+                        <div class="metric-value" id="atRiskMRR">$0</div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-content">
+                        <div class="metric-label">Avg Health Score</div>
+                        <div class="metric-value" id="avgHealthScore">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Churn Risk Trend</h3>
+                    <canvas id="churnTrendChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Risk Distribution</h3>
+                    <canvas id="riskDistributionChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Urgent Actions -->
+            <div class="card">
+                <h3>Urgent Actions Required</h3>
+                <div id="urgentActionsList" class="actions-list"></div>
+            </div>
+        </div>
+
+        <!-- Customers Page -->
+        <div id="customersPage" class="page">
+            <div class="page-header">
+                <h1>Customers</h1>
+                <button class="btn btn-primary" id="addCustomerBtn">+ Add Customer</button>
+            </div>
+
+            <div class="filters-bar">
+                <input type="text" id="customerSearch" class="search-input" placeholder="Search customers...">
+                <select id="riskFilter" class="filter-select">
+                    <option value="all">All Risk Levels</option>
+                    <option value="high">High Risk</option>
+                    <option value="medium">Medium Risk</option>
+                    <option value="low">Low Risk</option>
+                </select>
+            </div>
+
+            <div class="card">
+                <div class="table-container">
+                    <table class="customers-table">
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Health</th>
+                                <th>Risk</th>
+                                <th>MRR</th>
+                                <th>Contract End</th>
+                                <th>Risk Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customersTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Detail Page -->
+        <div id="customerDetailPage" class="page">
+            <div class="page-header">
+                <button class="btn-back" id="backToCustomers">← Back</button>
+                <h1 id="customerDetailName">Customer Details</h1>
+            </div>
+
+            <div class="detail-grid">
+                <div class="card detail-card">
+                    <h3>Health Score</h3>
+                    <div class="health-gauge-container">
+                        <canvas id="healthGauge"></canvas>
+                        <div class="health-score-center">
+                            <span id="customerHealthScore">0</span>
+                        </div>
+                    </div>
+                    <div id="customerRiskBadge" class="risk-badge">Low Risk</div>
+                </div>
+
+                <div class="card detail-card">
+                    <h3>Customer Information</h3>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <span class="info-label">Email:</span>
+                            <span id="customerDetailEmail">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">MRR:</span>
+                            <span id="customerDetailMRR">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Contract End:</span>
+                            <span id="customerDetailContract">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Status:</span>
+                            <span id="customerDetailStatus">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Page -->
+        <div id="analyticsPage" class="page">
+            <div class="page-header">
+                <h1>Analytics</h1>
+            </div>
+
+            <div class="card">
+                <h3>Revenue at Risk</h3>
+                <div class="metric-row">
+                    <div>
+                        <div class="metric-label">Expected MRR Loss</div>
+                        <div id="expectedMrrLoss" class="metric-value">$0</div>
+                    </div>
+                    <div>
+                        <div class="metric-label">Risk Ratio</div>
+                        <div id="riskRatio" class="metric-value">0%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Risk Momentum</h3>
+                <table class="analytics-table">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Trend</th>
+                            <th>Δ Churn</th>
+                        </tr>
+                    </thead>
+                    <tbody id="riskMomentumTable"></tbody>
+                </table>
+            </div>
+
+            <div class="chart-card">
+                <h3>Revenue at Risk Over Time</h3>
+                <canvas id="revenueRiskChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Integrations Page -->
+        <div id="integrationsPage" class="page">
+            <div class="page-header">
+                <h1>Integrations</h1>
+            </div>
+
+            <div class="integrations-grid">
+                <div class="integration-card">
+                    <div class="integration-header">
+                        <h3>Stripe</h3>
+                    </div>
+                    <p>Connect your Stripe account to automatically sync customer and payment data.</p>
+                    <div class="integration-status" id="stripeStatus">
+                        <span class="status-indicator disconnected"></span>
+                        Not Connected
+                    </div>
+                    <button class="btn btn-primary" id="connectStripeBtn">Connect Stripe</button>
+                </div>
+
+                <div class="integration-card disabled">
+                    <div class="integration-header">
+                        <h3>HubSpot</h3>
+                    </div>
+                    <p>Sync customer engagement data from HubSpot CRM.</p>
+                    <div class="integration-status">
+                        <span class="badge">Coming Soon</span>
+                    </div>
+                </div>
+
+                <div class="integration-card disabled">
+                    <div class="integration-header">
+                        <h3>Salesforce</h3>
+                    </div>
+                    <p>Import customer data from Salesforce.</p>
+                    <div class="integration-status">
+                        <span class="badge">Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Page -->
+        <div id="settingsPage" class="page">
+            <div class="page-header">
+                <h1>Settings</h1>
+            </div>
+
+            <div class="card">
+                <h3>Profile Settings</h3>
+                <form id="profileForm" class="settings-form">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="settingsFullName">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="settingsEmail">
+                    </div>
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" id="settingsCompany">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3>Notification Preferences</h3>
+                <div class="settings-toggle">
+                    <label><input type="checkbox" checked> Email alerts for high-risk customers</label>
+                </div>
+                <div class="settings-toggle">
+                    <label><input type="checkbox" checked> Weekly summary reports</label>
+                </div>
+                <div class="settings-toggle">
+                    <label><input type="checkbox"> Daily digest</label>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- Add Customer Modal -->
+<div id="addCustomerModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Add New Customer</h2>
+            <button class="modal-close">&times;</button>
+        </div>
+        <form id="addCustomerForm">
+            <div class="form-group">
+                <label>Customer Name</label>
+                <input type="text" id="newCustomerName" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="newCustomerEmail" required>
+            </div>
+            <div class="form-group">
+                <label>Monthly Recurring Revenue (MRR)</label>
+                <input type="number" id="newCustomerMRR" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label>Contract End Date</label>
+                <input type="date" id="newCustomerContractEnd">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                <button type="submit" class="btn btn-primary">Add Customer</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="app.js"></script>
+
 </body>
 </html>
+
