@@ -484,8 +484,15 @@ async function renderRiskMomentum() {
       r => `
       <tr>
         <td>${r.customer}</td>
-        <td>${r.trend}</td>
-        <td>${r.delta}</td>
+        <td>
+  <span class="trend-badge ${r.trend}">
+    ${r.trend}
+  </span>
+</td>
+<td class="${r.delta > 0 ? "negative" : r.delta < 0 ? "positive" : "neutral"}">
+  ${r.delta > 0 ? "+" : ""}${r.delta}
+</td>
+
       </tr>
     `
     )
