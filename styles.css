@@ -635,3 +635,86 @@ td.neutral {
 .analytics-right {
   min-width: 0; /* prevents chart overflow */
 }
+
+/* ============================= */
+/* Analytics Full Page Layout */
+/* ============================= */
+
+.analytics-page {
+  height: 100%;
+}
+
+.analytics-full {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.analytics-metrics {
+  display: flex;
+  gap: 24px;
+}
+
+.analytics-main {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* ============================= */
+/* Enhanced Analytics Table */
+/* ============================= */
+
+.analytics-table.enhanced {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.analytics-table.enhanced th {
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #6b7280;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.analytics-table.enhanced td {
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.analytics-table.enhanced tr:hover {
+  background: rgba(0,0,0,0.02);
+}
+
+/* Revenue column emphasis */
+.analytics-table .revenue {
+  font-weight: 600;
+}
+
+/* Trend badges (you already mostly have this) */
+.trend-badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.trend-badge.deteriorating {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.trend-badge.improving {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.trend-badge.stable {
+  background: rgba(107, 114, 128, 0.15);
+  color: #6b7280;
+}
