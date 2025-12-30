@@ -320,8 +320,8 @@ async function renderChurnTrendChart() {
 }
 
 async function renderRevenueAtRiskChart() {
-  const ctx = document.getElementById("revenueRiskChart");
-  if (!ctx) return;
+  const canvas = document.getElementById("revenueRiskChart");
+  if (!canvas) return;
 
   const data = await fetchRevenueAtRiskHistory();
   if (!data.length) return;
@@ -330,7 +330,7 @@ async function renderRevenueAtRiskChart() {
     state.charts.revenueRisk.destroy();
   }
 
-  state.charts.revenueRisk = new Chart(ctx, {
+  state.charts.revenueRisk = new Chart(canvas.getContext("2d"), {
     type: "line",
     data: {
       labels: data.map(d =>
@@ -352,6 +352,7 @@ async function renderRevenueAtRiskChart() {
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: { position: "bottom" }
       },
@@ -366,6 +367,7 @@ async function renderRevenueAtRiskChart() {
     }
   });
 }
+
 
 // ================================
 // Alerts
@@ -451,8 +453,12 @@ function getFilteredCustomers() {
 async function initializeAnalytics() {
   await renderRevenueAtRisk();
   await renderRiskMomentum();
-  await renderRevenueAtRiskChart(); // 👈 add this
+
+  requestAnimationFrame(() => {
+    renderRevenueAtRiskChart();
+  });
 }
+
 
 
 async function renderRevenueAtRisk() {
