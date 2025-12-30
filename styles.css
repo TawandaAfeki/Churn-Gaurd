@@ -572,4 +572,40 @@ body {
 .customers-table tr:hover td {
   background: #f8fafc;
 }
+.trend-badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.trend-badge.deteriorating {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.trend-badge.improving {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+}
+
+.trend-badge.stable {
+  background: rgba(107, 114, 128, 0.15);
+  color: #6b7280;
+}
+
+td.positive {
+  color: #10b981;
+  font-weight: 600;
+}
+
+td.negative {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+td.neutral {
+  color: #6b7280;
+}
 
