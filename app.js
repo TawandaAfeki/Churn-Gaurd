@@ -250,7 +250,17 @@ function renderRiskChart() {
     type: "doughnut",
     data: {
       labels: ["Low", "Medium", "High"],
-      datasets: [{ data: [low, med, high] }]
+      datasets: [
+  {
+    data: [low, med, high],
+    backgroundColor: [
+      "#10b981", // Low - green
+      "#f59e0b", // Medium - orange
+      "#ef4444"  // High - red
+    ]
+  }
+]
+
     }
   });
 }
@@ -269,10 +279,32 @@ async function renderChurnTrendChart() {
     data: {
       labels: trend.map(r => r.month),
       datasets: [
-        { label: "Low", data: trend.map(r => r.low) },
-        { label: "Medium", data: trend.map(r => r.medium) },
-        { label: "High", data: trend.map(r => r.high) }
-      ]
+  {
+    label: "Low",
+    data: trend.map(r => r.low),
+    borderColor: "#10b981",
+    backgroundColor: "rgba(16,185,129,0.15)",
+    tension: 0.4,
+    fill: true
+  },
+  {
+    label: "Medium",
+    data: trend.map(r => r.medium),
+    borderColor: "#f59e0b",
+    backgroundColor: "rgba(245,158,11,0.15)",
+    tension: 0.4,
+    fill: true
+  },
+  {
+    label: "High",
+    data: trend.map(r => r.high),
+    borderColor: "#ef4444",
+    backgroundColor: "rgba(239,68,68,0.15)",
+    tension: 0.4,
+    fill: true
+  }
+]
+
     }
   });
 }
