@@ -480,23 +480,29 @@ async function renderRiskMomentum() {
 
   const rows = await res.json();
   riskMomentumTable.innerHTML = rows
-    .map(
-      r => `
-      <tr>
-        <td>${r.customer}</td>
-        <td>
-  <span class="trend-badge ${r.trend}">
-    ${r.trend}
-  </span>
-</td>
-<td class="${r.delta > 0 ? "negative" : r.delta < 0 ? "positive" : "neutral"}">
-  ${r.delta > 0 ? "+" : ""}${r.delta}
-</td>
+  .map(
+    r => `
+    <tr>
+      <td><strong>${r.customer}</strong></td>
 
-      </tr>
-    `
-    )
-    .join("");
+      <td>
+        <span class="trend-badge ${r.trend}">
+          ${r.trend}
+        </span>
+      </td>
+
+      <td class="${r.delta > 0 ? "negative" : "neutral"}">
+        ${r.delta > 0 ? "+" : ""}${r.delta}
+      </td>
+
+      <td class="revenue">
+        ${formatCurrency(r.revenue_at_risk)}
+      </td>
+    </tr>
+  `
+  )
+  .join("");
+
 }
 
 // ================================
