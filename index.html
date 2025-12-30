@@ -243,47 +243,70 @@
         </div>
 
         <!-- Analytics Page -->
-        <div id="analyticsPage" class="page">
-            <div class="page-header">
-                <h1>Analytics</h1>
-            </div>
+<div id="analyticsPage" class="page">
+  <div class="page-header">
+    <h1>Analytics</h1>
+  </div>
 
-            <div class="card">
-                <h3>Revenue at Risk</h3>
-                <div class="metric-row">
-                    <div>
-                        <div class="metric-label">Expected MRR Loss</div>
-                        <div id="expectedMrrLoss" class="metric-value">$0</div>
-                    </div>
-                    <div>
-                        <div class="metric-label">Risk Ratio</div>
-                        <div id="riskRatio" class="metric-value">0%</div>
-                    </div>
-                </div>
-            </div>
+  <!-- Analytics Layout -->
+  <div class="analytics-grid">
 
-            <div class="card">
-                <h3>Risk Momentum</h3>
-                <table class="analytics-table">
-                    <thead>
-                        <tr>
-                            <th>Customer</th>
-                            <th>Trend</th>
-                            <th>Risk Change</th>
-                        </tr>
-                    </thead>
-                    <tbody id="riskMomentumTable"></tbody>
-                </table>
-            </div>
+    <!-- LEFT COLUMN -->
+    <div class="analytics-left">
 
-            <div class="card" style="height: 300px;">
-  <h3>Expected Revenue Loss Over Time</h3>
-<p class="chart-subtitle">
-  Based on current customer churn probability
-</p>
+      <!-- Revenue at Risk Metric -->
+      <div class="card metric-card">
+        <div class="metric-title">Revenue at Risk</div>
 
-  <canvas id="revenueRiskChart"></canvas>
+        <div id="expectedMrrLoss" class="metric-value">$0</div>
+
+        <div class="metric-meta">
+          <span class="metric-label">Risk Ratio</span>
+          <span id="riskRatio" class="metric-badge high">0%</span>
+        </div>
+
+        <div class="metric-caption">
+          Estimated Monthly Revenue Exposure
+        </div>
+      </div>
+
+      <!-- Risk Momentum -->
+      <div class="card">
+        <h3>Risk Momentum</h3>
+
+        <table class="analytics-table">
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Trend</th>
+              <th>Risk Change</th>
+            </tr>
+          </thead>
+          <tbody id="riskMomentumTable"></tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="analytics-right">
+      <div class="card chart-card">
+        <div class="chart-header">
+          <h3>Expected Revenue Loss</h3>
+          <p class="chart-subtitle">
+            Projection Based on Current Customer Risk Probability
+          </p>
+        </div>
+
+        <div class="chart-container">
+          <canvas id="revenueRiskChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
+
 
 
         <!-- Integrations Page -->
