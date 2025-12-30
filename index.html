@@ -243,21 +243,17 @@
         </div>
 
         <!-- Analytics Page -->
-<div id="analyticsPage" class="page">
+<div id="analyticsPage" class="page analytics-page">
   <div class="page-header">
     <h1>Analytics</h1>
   </div>
 
-  <!-- Analytics Layout -->
-  <div class="analytics-grid">
+  <div class="analytics-full">
 
-    <!-- LEFT COLUMN -->
-    <div class="analytics-left">
-
-      <!-- Revenue at Risk Metric -->
+    <!-- TOP METRICS -->
+    <div class="analytics-metrics">
       <div class="card metric-card">
         <div class="metric-title">Revenue at Risk</div>
-
         <div id="expectedMrrLoss" class="metric-value">$0</div>
 
         <div class="metric-meta">
@@ -266,35 +262,37 @@
         </div>
 
         <div class="metric-caption">
-          Estimated Monthly Revenue Exposure
+          Estimated monthly revenue exposure
         </div>
       </div>
+    </div>
 
-      <!-- Risk Momentum -->
+    <!-- MAIN CONTENT -->
+    <div class="analytics-main">
+
+      <!-- LEFT: Risk Momentum -->
       <div class="card">
         <h3>Risk Momentum</h3>
 
-        <table class="analytics-table">
+        <table class="analytics-table enhanced">
           <thead>
             <tr>
               <th>Customer</th>
-              <th>Trend</th>
+              <th>Status</th>
               <th>Risk Change</th>
+              <th>Revenue at Risk</th>
             </tr>
           </thead>
           <tbody id="riskMomentumTable"></tbody>
         </table>
       </div>
 
-    </div>
-
-    <!-- RIGHT COLUMN -->
-    <div class="analytics-right">
+      <!-- RIGHT: Chart -->
       <div class="card chart-card">
         <div class="chart-header">
           <h3>Expected Revenue Loss</h3>
           <p class="chart-subtitle">
-            Projection Based on Current Customer Risk Probability
+            Projection based on current customer churn probability
           </p>
         </div>
 
@@ -302,10 +300,11 @@
           <canvas id="revenueRiskChart"></canvas>
         </div>
       </div>
-    </div>
 
+    </div>
   </div>
 </div>
+
 
 
 
