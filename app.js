@@ -1,4 +1,3 @@
-this is my js. please rewrite it to be correct code:
 // ================================
 // Configuration
 // ================================
