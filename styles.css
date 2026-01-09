@@ -466,6 +466,15 @@ body {
   padding: 24px;
 }
 
+/* Remove default focus outline on modal close button */
+.modal-close,
+.modal-close:focus,
+.modal-close:focus-visible,
+.modal-close:active {
+  outline: none;
+  box-shadow: none;
+}
+
 /* =====================================================
    LOGO FIX — ADDITIVE ONLY (NO EXISTING CODE CHANGED)
 ===================================================== */
