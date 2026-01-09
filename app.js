@@ -60,6 +60,15 @@ const riskMomentumTable = document.getElementById("riskMomentumTable");
 const backToCustomers = document.getElementById("backToCustomers");
 const customerRiskBadge = document.getElementById("customerRiskBadge");
 
+const addCustomerBtn = document.getElementById("addCustomerBtn");
+const addCustomerModal = document.getElementById("addCustomerModal");
+const addCustomerForm = document.getElementById("addCustomerForm");
+
+const newCustomerName = document.getElementById("newCustomerName");
+const newCustomerEmail = document.getElementById("newCustomerEmail");
+const newCustomerMRR = document.getElementById("newCustomerMRR");
+const newCustomerContractEnd = document.getElementById("newCustomerContractEnd");
+
 // ================================
 // Restore auth
 // ================================
@@ -209,6 +218,19 @@ function showPage(pageId) {
   });
   document.getElementById(pageId).style.display = "block";
 }
+
+ // ================================
+// Add Customer Modal
+// ================================
+addCustomerBtn.addEventListener("click", () => {
+  addCustomerModal.classList.add("active");
+});
+
+document.querySelectorAll(".modal-close").forEach(btn => {
+  btn.addEventListener("click", () => {
+    addCustomerModal.classList.remove("active");
+  });
+});
 
 // ================================
 // Dashboard
@@ -524,6 +546,39 @@ document.querySelectorAll(".nav-item").forEach(item => {
 backToCustomers.addEventListener("click", () => {
   setActiveNav("customers");
   showPage("customersPage");
+});
+
+// ================================
+// Add Customer Submit
+// ================================
+addCustomerForm.addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const payload = {
+    name: newCustomerName.value.trim(),
+    email: newCustomerEmail.value.trim(),
+    mrr: Number(newCustomerMRR.value),
+    contract_end: newCustomerContractEnd.value || null
+  };
+
+  const res = await fetch(`${API_BASE_URL}/customers`, {
+    method: "POST",
+    headers: authHeaders(),
+    body: JSON.stringify(payload)
+  });
+
+  if (!res.ok) {
+    alert("Failed to add customer");
+    return;
+  }
+
+  // Close modal + reset
+  addCustomerModal.classList.remove("active");
+  addCustomerForm.reset();
+
+  // Force refresh customers
+  customersLoaded = false;
+  await loadCustomers();
 });
 
 // ================================
