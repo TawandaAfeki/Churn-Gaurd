@@ -391,6 +391,31 @@
     </main>
 </div>
 
+<div class="card">
+  <h3>Add Customer</h3>
+
+  <form id="settingsAddCustomerForm">
+    <div class="form-group">
+      <label>Customer Name</label>
+      <input type="text" id="settingsCustomerName" required />
+    </div>
+
+    <div class="form-group">
+      <label>Customer Email</label>
+      <input type="email" id="settingsCustomerEmail" required />
+    </div>
+
+    <div class="form-group">
+      <label>Monthly Recurring Revenue (MRR)</label>
+      <input type="number" id="settingsCustomerMRR" step="0.01" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      Add Customer
+    </button>
+  </form>
+</div>
+
 <!-- Add Customer Modal -->
 <div id="addCustomerModal" class="modal">
     <div class="modal-content">
