@@ -68,6 +68,7 @@ const newCustomerName = document.getElementById("newCustomerName");
 const newCustomerEmail = document.getElementById("newCustomerEmail");
 const newCustomerMRR = document.getElementById("newCustomerMRR");
 const newCustomerContractEnd = document.getElementById("newCustomerContractEnd");
+const newCustomerCustomerStartDate = document.getElementById("newCustomerCustomerStartDate")
 
 // ================================
 // Restore auth
