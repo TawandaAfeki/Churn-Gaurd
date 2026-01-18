@@ -568,9 +568,12 @@ addCustomerForm.addEventListener("submit", async e => {
   });
 
   if (!res.ok) {
-    alert("Failed to add customer");
-    return;
-  }
+  const err = await res.text();
+  console.error("Add customer failed:", err);
+  alert("Failed to add customer");
+  return;
+}
+
 
   // Close modal + reset
   addCustomerModal.classList.remove("active");
